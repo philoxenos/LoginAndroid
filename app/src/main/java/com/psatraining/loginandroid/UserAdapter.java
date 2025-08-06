@@ -50,7 +50,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         UserModel user = userList.get(position);
 
-        holder.tv_userID.setText("ID: " + user.getUserID());
+        holder.tv_userID.setText("ID: " + user.getId());
         holder.tv_userName.setText(user.getUserName());
         holder.tv_userEmail.setText(user.getUserEmail());
 

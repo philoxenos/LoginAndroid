@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "user_table")
 public class UserModel {
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "user_id")
-    private int userID;
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    private String id;
 
     @NonNull
     @ColumnInfo(name = "user_name")
@@ -60,12 +60,12 @@ public class UserModel {
         this.userPassword = userPassword;
     }
 
-    public int getUserID() {
-        return userID;
+    public String getId() {
+        return id;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserName() {
