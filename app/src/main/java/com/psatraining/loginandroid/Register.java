@@ -25,7 +25,9 @@ public class Register extends AppCompatActivity {
     EditText et_regEmail, et_regUsername, et_regPassword, et_birthdate, et_description;
     ImageView iv_calendar;
     Button btn_Register;
-    UserRepository userRepository;
+    UserClient userClient;
+    UserDao userDao;
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,9 @@ public class Register extends AppCompatActivity {
         iv_calendar = findViewById(R.id.iv_calendar);
         btn_Register = findViewById(R.id.btn_Register);
 
-        userRepository = new UserRepository(this);
+        userClient = RetrofitInstance.getRetrofitInstance().create(UserClient.class);
+        dbHelper = DatabaseHelper.getInstance(this);
+        userDao = dbHelper.userDao();
 
 
         iv_calendar.setOnClickListener(v -> showDatePickerDialog());

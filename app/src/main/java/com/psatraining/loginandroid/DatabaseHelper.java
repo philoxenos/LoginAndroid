@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Database(entities = {UserModel.class}, version = 1)
+@Database(entities = {UserModel.class}, version = 2)
 public abstract class DatabaseHelper extends RoomDatabase{
 
     public abstract UserDao userDao();
@@ -29,6 +29,7 @@ public abstract class DatabaseHelper extends RoomDatabase{
                     INSTANCE = Room
                             .databaseBuilder(context.getApplicationContext()
                                     , DatabaseHelper.class, "LoginAndroid")
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

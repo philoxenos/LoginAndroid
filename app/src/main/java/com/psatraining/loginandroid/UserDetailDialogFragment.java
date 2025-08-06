@@ -13,7 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 
 public class UserDetailDialogFragment extends DialogFragment {
 
-    public static final String ARG_USER_ID = "userID";
+    public static final String ARG_USER_ID = "id";
     public static final String ARG_USER_NAME = "userName";
     public static final String ARG_USER_EMAIL = "userEmail";
     public static final String ARG_USER_BIRTHDATE = "userBirthdate";
@@ -22,7 +22,7 @@ public class UserDetailDialogFragment extends DialogFragment {
     public static UserDetailDialogFragment newInstance(UserModel user) {
         UserDetailDialogFragment fragment = new UserDetailDialogFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_USER_ID, user.getUserID());
+        args.putString(ARG_USER_ID, user.getId());
         args.putString(ARG_USER_NAME, user.getUserName());
         args.putString(ARG_USER_EMAIL, user.getUserEmail());
         args.putString(ARG_USER_BIRTHDATE, user.getBirthDate());
@@ -46,7 +46,7 @@ public class UserDetailDialogFragment extends DialogFragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            tvUserId.setText("ID: " + args.getInt(ARG_USER_ID));
+            tvUserId.setText("ID: " + args.getString(ARG_USER_ID));
             tvUserName.setText(args.getString(ARG_USER_NAME, ""));
             tvUserEmail.setText(args.getString(ARG_USER_EMAIL, ""));
 
