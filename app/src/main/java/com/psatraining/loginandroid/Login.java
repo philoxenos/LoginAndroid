@@ -22,8 +22,7 @@ public class Login extends AppCompatActivity {
     EditText et_Username, et_Password;
     TextView tvBtn_Register;
     Button btn_Login;
-    UserClient userClient;
-    DatabaseHelper dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +35,28 @@ public class Login extends AppCompatActivity {
         tvBtn_Register = findViewById(R.id.tvBtn_Register);
         btn_Login = findViewById(R.id.btn_Login);
 
-        userClient = RetrofitInstance.getRetrofitInstance().create(UserClient.class);
-        dbHelper = new DatabaseHelper(this);
+        UserRepository userRepository = new UserRepository(this);
 
         btn_Login.setOnClickListener(v -> {
             String username = et_Username.getText().toString().trim();
             String password = et_Password.getText().toString().trim();
 
-            boolean exists = dbHelper.validateUser(username, password);
+            String hashPassword = Utility.hashPassword(password);
 
-            if (exists){
-                Intent intent = new Intent(Login.this, HomePage.class );
-                startActivity(intent);
-                finish();
-            } else{
-                Toast.makeText(this, "Incorrect Username or Password!", Toast.LENGTH_SHORT).show();
-            }
+            userRepository.login(username, hashPassword, success -> runOnUiThread(() -> {
+                if (success) {
+                    Intent intent = new Intent(Login.this, HomePage.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "Incorrect Username or Password!", Toast.LENGTH_SHORT).show();
+                }
+            }));
+
         });
 
         tvBtn_Register.setOnClickListener(v -> {
-            Intent intent = new Intent(Login.this, Register.class );
+            Intent intent = new Intent(Login.this, Register.class);
             startActivity(intent);
         });
     }

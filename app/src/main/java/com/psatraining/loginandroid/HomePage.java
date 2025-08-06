@@ -21,7 +21,7 @@ public class HomePage extends AppCompatActivity {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<UserModel> userList;
-    private DatabaseHelper dbHelper;
+    private UserRepository userRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,65 +29,34 @@ public class HomePage extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_home_page);
 
-        initializeViews();
-        initializeDatabase();
-        setupRecyclerView();
-        loadUsersFromDatabase();
-
-    }
-
-    private void initializeViews() {
         recyclerView = findViewById(R.id.recyclerView_users);
         userList = new ArrayList<>();
-    }
-
-    private void initializeDatabase() {
-        dbHelper = new DatabaseHelper(this);
-    }
-
-    private void setupRecyclerView() {
         userAdapter = new UserAdapter(this, userList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(userAdapter);
+
+        userRepository = new UserRepository(this);
+        loadUsers();
     }
 
-    private void loadUsersFromDatabase() {
-        try {
-            // Clear existing list
+    private void loadUsers() {
+        userRepository.getAllUsers().observe(this, users -> {
             userList.clear();
-
-            // Get users from database
-            List<UserModel> usersFromDb = dbHelper.getAllUsers();
-
-            if (usersFromDb != null && !usersFromDb.isEmpty()) {
-                userList.addAll(usersFromDb);
+            if (users != null && !users.isEmpty()) {
+                userList.addAll(users);
                 userAdapter.updateUserList(userList);
                 Toast.makeText(this, "Loaded " + userList.size() + " users", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "No users found in database", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No users found.", Toast.LENGTH_SHORT).show();
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error loading users: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        });
     }
 
     // Refresh data when activity resumes
     @Override
     protected void onResume() {
         super.onResume();
-        loadUsersFromDatabase();
+        loadUsers();
     }
-
-
-
-
-
-
-
-
-
-
 
 }

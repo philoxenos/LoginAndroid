@@ -3,6 +3,7 @@ package com.psatraining.loginandroid;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Dao
 public interface UserDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(UserModel userModel);
 
     @Update
@@ -28,7 +29,4 @@ public interface UserDao {
 
     @Query("SELECT * FROM user_table WHERE user_email = :userEmail LIMIT 1")
     UserModel validateRegUser(String userEmail);
-
-
-
 }

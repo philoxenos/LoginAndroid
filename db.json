@@ -1,40 +1,44 @@
 {
   "users": [
     {
-      "id": "cef9",
-      "birthDate": "2025-07-11",
-      "description": "Test",
-      "userEmail": "asdasdasd",
-      "userID": 0,
-      "userName": "ayuklerwin21",
-      "userPassword": "3f69182234e70b04b48f227c98e238f25707e31ce5cee11c8eee226bbd6a202c"
+      "id": 1,
+      "userName": "Test123",
+      "userEmail": "test123@example.com",
+      "userPassword": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+      "birthDate": "2025-08-13",
+      "description": "123",
+      "createdAt": 1754471946006,
+      "lastUpdatedAt": 1754471946006
     },
     {
-      "id": "6c2c",
-      "birthDate": "2025-07-17",
-      "description": "test123",
-      "userEmail": "gersanibalerwin@example.com",
-      "userID": 0,
-      "userName": "test123",
-      "userPassword": "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae"
+      "id": 0,
+      "birthDate": "2025-08-30",
+      "createdAt": 1754473962950,
+      "description": "Gersaniba21",
+      "lastUpdatedAt": 1754473962950,
+      "userEmail": "fadedarch21@example.com",
+      "userName": "fadedarch21",
+      "userPassword": "328c89aea7fbd5ac50cdfdb7fbbf44837ce16226bbf00c6a4580b8510699e64b"
     },
     {
-      "id": "9876",
-      "birthDate": "2025-07-30",
-      "description": "Test123",
-      "userEmail": "roycebading@example.com",
-      "userID": 0,
-      "userName": "roycebading123",
-      "userPassword": "4c37f585b3621f4326812a371eecd930df5ed74ef48c7482f5258cb11567ad4a"
+      "id": 0,
+      "birthDate": "2025-08-18",
+      "createdAt": 1754474038750,
+      "description": "123",
+      "lastUpdatedAt": 1754474038750,
+      "userEmail": "philoxenos@gmail.com",
+      "userName": "philoxenos213",
+      "userPassword": "9909e839d1c40bb4fb7f3d81b32f0f9a8cee6ffdb8725c02ab1a311868e51b7f"
     },
     {
-      "id": "6a11",
-      "birthDate": "2025-02-18",
-      "description": "This is my first description",
-      "userEmail": "lerwinpsa@example.com",
-      "userID": 0,
-      "userName": "lerwinpsa123",
-      "userPassword": "69838e280568775c0ea9bdb44230e5344a874b87167a434d153fed67b7d25512"
+      "id": 0,
+      "birthDate": "2025-08-01",
+      "createdAt": 1754474093266,
+      "description": "213",
+      "lastUpdatedAt": 1754474093266,
+      "userEmail": "sample213",
+      "userName": "sample",
+      "userPassword": "af2bdbe1aa9b6ec1e2ade1d694f41fc71a831d0268e9891562113d8a62add1bf"
     }
   ]
 }

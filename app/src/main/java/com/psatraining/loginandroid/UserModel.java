@@ -9,8 +9,8 @@ import androidx.room.PrimaryKey;
 public class UserModel {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "user_id")
-    private int userID;
+    @ColumnInfo(name = "id") // Changed from "user_id" to "id" to match json-server
+    private int id; // Changed from userID to id
 
     @NonNull
     @ColumnInfo(name = "user_name")
@@ -33,14 +33,10 @@ public class UserModel {
     private String description;
 
     @ColumnInfo(name = "created_at")
-    private long createdAt; // long is already non-null
+    private long createdAt;
 
     @ColumnInfo(name = "last_updated_at")
-    private long lastUpdatedAt; // long is already non-null
-
-    public UserModel(){
-
-    }
+    private long lastUpdatedAt;
 
     // Constructor without ID (for new users - ID will be auto-generated)
     public UserModel(String userName, String userEmail, String userPassword, String birthDate, String description, long createdAt, long lastUpdatedAt) {
@@ -53,19 +49,22 @@ public class UserModel {
         this.lastUpdatedAt = lastUpdatedAt;
     }
 
-    // Constructor with ID (for existing users from database)
-    public UserModel(String userName, String userEmail, String userPassword) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userPassword = userPassword;
+    // Getters and setters - updated method names
+    public int getId() { // Changed from getUserID()
+        return id;
     }
 
+    public void setId(int id) { // Changed from setUserID()
+        this.id = id;
+    }
+
+    // For backward compatibility, keep the old method names but delegate to new ones
     public int getUserID() {
-        return userID;
+        return getId();
     }
 
     public void setUserID(int userID) {
-        this.userID = userID;
+        setId(userID);
     }
 
     public String getUserName() {

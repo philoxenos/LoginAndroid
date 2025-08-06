@@ -58,71 +58,42 @@ public class Register extends AppCompatActivity {
                 return;
             }
 
-            // Hash password for network and local
-            String hashedPassword = hashPassword(password);
-
             // To store the timestamp of each user
             long now = System.currentTimeMillis();
 
+            // Hash the password
+            String hashPassword = Utility.hashPassword(password);
+
             // Create an instance of UserModel
-            UserModel user = new UserModel(username, email, hashedPassword, birthdate, description, now, now);
+            UserModel user = new UserModel(username, email, hashPassword, birthdate, description, now, now);
 
-
-
-
-            // Check remote for email existence
-            userClient.findUserByEmail(email).enqueue(new Callback<>() {
-                @Override
-                public void onResponse(Call<List<UserModel>> call, Response<List<UserModel>> response) {
-                    if (response.isSuccessful() && response.body() != null && response.body().isEmpty()) {
-
-                        // Not on server, add remotely (send hashed password)
-
-                        long now = System.currentTimeMillis();
-                        UserModel user = new UserModel(username, email, hashedPassword, birthdate, description, now, now);
-
-                        if (userDao.validateRegUser(email) == null) {
-                            userDao.insertUser(user);
-                        }
-                        else {
-                            Toast.makeText(Register.this, "Email already exists locally, try another.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-
-
-
-
-
-                        userClient.addUser(user).enqueue(new Callback<UserModel>() {
-                            @Override
-                            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+            userRepository.checkEmailExists(email, exists -> runOnUiThread(() -> {
+                if (exists) {
+                    Toast.makeText(this, "Email already exists, try another.", Toast.LENGTH_SHORT).show();
+                } else {
+                    userRepository.registerUser(user, new retrofit2.Callback<UserModel>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<UserModel> call, retrofit2.Response<UserModel> response) {
+                            runOnUiThread(() -> {
                                 if (response.isSuccessful()) {
-                                    // Save locally (hashed password)
-                                    dbHelper.addUser(user);
                                     Toast.makeText(Register.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(Register.this, Login.class));
                                     finish();
                                 } else {
                                     Toast.makeText(Register.this, "Registration failed.", Toast.LENGTH_SHORT).show();
                                 }
-                            }
-
-                            @Override
-                            public void onFailure(Call<UserModel> call, Throwable t) {
-                                Toast.makeText(Register.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        Toast.makeText(Register.this, "Email already exists, try another.", Toast.LENGTH_SHORT).show();
-                    }
+                            });
+                        }
+                        @Override
+                        public void onFailure(retrofit2.Call<UserModel> call, Throwable t) {
+                            runOnUiThread(() -> {
+                                Toast.makeText(Register.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                    });
                 }
+            }));
 
-                @Override
-                public void onFailure(Call<List<UserModel>> call, Throwable t) {
-                    Toast.makeText(Register.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
         });
     }
 
@@ -143,23 +114,5 @@ public class Register extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public static String hashPassword(String password){
-        try{
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes());
-            StringBuilder hexString = new StringBuilder();
 
-            for (byte b: hash){
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1)
-                    hexString.append(0);
-                hexString.append(hex);
-            }
-            return hexString.toString();
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }
