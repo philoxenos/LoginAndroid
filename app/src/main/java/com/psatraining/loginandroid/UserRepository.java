@@ -41,12 +41,6 @@ public class UserRepository {
                 if (response.isSuccessful() && response.body() != null){
                     usersLiveData.postValue(response.body());
 
-//                    // Will automatically backup data using Room for offline use
-//                    Executors.newSingleThreadExecutor().execute(() ->{
-//                        for (UserModel user : response.body()){
-//                            userDao.insertUser(user);
-//                        }
-//                    });
                 } else {
                     // In case of no internet connection, will save to Room
                     Executors.newSingleThreadExecutor().execute(() ->{
@@ -69,20 +63,20 @@ public class UserRepository {
 
     // Remote register, then local on success (User must connect to internet to register)
     public void registerUser(UserModel user, Callback<UserModel> callback) {
-        userClient.addUser(user).enqueue(new Callback<UserModel>() {
-            @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    // Will automatically backup data using Room for offline use
-                    Executors.newSingleThreadExecutor().execute(() -> userDao.insertUser(response.body()));
+        Executors.newSingleThreadExecutor().execute(() -> {
+            long generatedId = userDao.insertUser(user);
+            user.setId((int) generatedId);
+            // Now send to server with correct id
+            userClient.addUser(user).enqueue(new Callback<UserModel>() {
+                @Override
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    callback.onResponse(call, response);
                 }
-                // Show/Propagate result for UI
-                callback.onResponse(call, response);
-            }
-            @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
-                callback.onFailure(call, t);
-            }
+                @Override
+                public void onFailure(Call<UserModel> call, Throwable t) {
+                    callback.onFailure(call, t);
+                }
+            });
         });
     }
 

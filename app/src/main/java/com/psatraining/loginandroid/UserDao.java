@@ -13,7 +13,7 @@ import java.util.List;
 public interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertUser(UserModel userModel);
+    long insertUser(UserModel userModel);
 
     @Update
     void updateUser(UserModel userModel);

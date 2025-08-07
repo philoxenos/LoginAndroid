@@ -2,53 +2,23 @@
   "users": [
     {
       "id": 1,
-      "userName": "Test123",
-      "userEmail": "test123@example.com",
-      "userPassword": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-      "birthDate": "2025-08-13",
-      "description": "123",
-      "createdAt": 1754471946006,
-      "lastUpdatedAt": 1754471946006
-    },
-    {
-      "id": 0,
-      "birthDate": "2025-08-30",
-      "createdAt": 1754473962950,
-      "description": "Gersaniba21",
-      "lastUpdatedAt": 1754473962950,
-      "userEmail": "fadedarch21@example.com",
-      "userName": "fadedarch21",
+      "birthDate": "2025-08-19",
+      "createdAt": 1754554113159,
+      "description": "This is my first description",
+      "lastUpdatedAt": 1754554113159,
+      "userEmail": "gersanibalerwin@gmail.com",
+      "userName": "ayuklerwin21",
       "userPassword": "328c89aea7fbd5ac50cdfdb7fbbf44837ce16226bbf00c6a4580b8510699e64b"
     },
     {
-      "id": 0,
-      "birthDate": "2025-08-18",
-      "createdAt": 1754474038750,
-      "description": "123",
-      "lastUpdatedAt": 1754474038750,
-      "userEmail": "philoxenos@gmail.com",
-      "userName": "philoxenos213",
-      "userPassword": "9909e839d1c40bb4fb7f3d81b32f0f9a8cee6ffdb8725c02ab1a311868e51b7f"
-    },
-    {
-      "id": 0,
-      "birthDate": "2025-08-01",
-      "createdAt": 1754474093266,
-      "description": "213",
-      "lastUpdatedAt": 1754474093266,
-      "userEmail": "sample213",
-      "userName": "sample",
-      "userPassword": "af2bdbe1aa9b6ec1e2ade1d694f41fc71a831d0268e9891562113d8a62add1bf"
-    },
-    {
-      "id": 0,
-      "birthDate": "2025-08-08",
-      "createdAt": 1754474471084,
-      "description": "567",
-      "lastUpdatedAt": 1754474471084,
-      "userEmail": "123@email.com",
-      "userName": "567",
-      "userPassword": "97a6d21df7c51e8289ac1a8c026aaac143e15aa1957f54f42e30d8f8a85c3a55"
+      "id": 2,
+      "birthDate": "2025-08-02",
+      "createdAt": 1754554146192,
+      "description": "This is philoxenos' description",
+      "lastUpdatedAt": 1754554146192,
+      "userEmail": "philoxenos@example.com",
+      "userName": "philoxenos21",
+      "userPassword": "328c89aea7fbd5ac50cdfdb7fbbf44837ce16226bbf00c6a4580b8510699e64b"
     }
   ]
 }
